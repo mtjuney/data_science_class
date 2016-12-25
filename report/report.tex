@@ -1,0 +1,657 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass{jsarticle}
+
+    
+    
+    \usepackage{graphicx} % Used to insert images
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{color} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{ulem} % ulem is needed to support strikethroughs (\sout)
+    
+
+    
+    
+    \definecolor{orange}{cmyk}{0,0.4,0.8,0.2}
+    \definecolor{darkorange}{rgb}{.71,0.21,0.01}
+    \definecolor{darkgreen}{rgb}{.12,.54,.11}
+    \definecolor{myteal}{rgb}{.26, .44, .56}
+    \definecolor{gray}{gray}{0.45}
+    \definecolor{lightgray}{gray}{.95}
+    \definecolor{mediumgray}{gray}{.8}
+    \definecolor{inputbackground}{rgb}{.95, .95, .85}
+    \definecolor{outputbackground}{rgb}{.95, .95, .95}
+    \definecolor{traceback}{rgb}{1, .95, .95}
+    % ansi colors
+    \definecolor{red}{rgb}{.6,0,0}
+    \definecolor{green}{rgb}{0,.65,0}
+    \definecolor{brown}{rgb}{0.6,0.6,0}
+    \definecolor{blue}{rgb}{0,.145,.698}
+    \definecolor{purple}{rgb}{.698,.145,.698}
+    \definecolor{cyan}{rgb}{0,.698,.698}
+    \definecolor{lightgray}{gray}{0.5}
+    
+    % bright ansi colors
+    \definecolor{darkgray}{gray}{0.25}
+    \definecolor{lightred}{rgb}{1.0,0.39,0.28}
+    \definecolor{lightgreen}{rgb}{0.48,0.99,0.0}
+    \definecolor{lightblue}{rgb}{0.53,0.81,0.92}
+    \definecolor{lightpurple}{rgb}{0.87,0.63,0.87}
+    \definecolor{lightcyan}{rgb}{0.5,1.0,0.83}
+    
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{データサイエンス概論 レポート}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=blue,
+      linkcolor=darkorange,
+      citecolor=darkgreen,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    学籍番号201621639 山田純也
+
+協力者： 関根 吉紀 長尾 悠真 中田 周育
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{numpy}\PY{n+nn}{.}\PY{n+nn}{linalg} \PY{k}{as} \PY{n+nn}{la}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{o}{\PYZpc{}}\PY{k}{pylab} inline
+        \PY{k+kn}{from} \PY{n+nn}{sympy} \PY{k}{import} \PY{o}{*}
+        \PY{n}{init\PYZus{}printing}\PY{p}{(}\PY{p}{)}
+        \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datas.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{datas2.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{names}\PY{o}{=}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{v1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Populating the interactive namespace from numpy and matplotlib
+    \end{Verbatim}
+
+    \section{問1}\label{ux554f1}
+
+    \subsection{問1(1)
+積和行列を係数とする正規方程式を作って解く}\label{ux554f11-ux7a4dux548cux884cux5217ux3092ux4fc2ux6570ux3068ux3059ux308bux6b63ux898fux65b9ux7a0bux5f0fux3092ux4f5cux3063ux3066ux89e3ux304f}
+
+    まず，積和行列\$ X \(と\) Y \$を求める．
+\(x\)が説明変数のデータ行列，\(y\)が目的変数のデータ行列だとすると，
+
+\(X = x^{T} x\)
+
+\(Y = x^{T} y\)
+
+となる．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{x\PYZus{}11} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+        \PY{n}{y\PYZus{}11} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+        \PY{n}{xx} \PY{o}{=} \PY{n}{x\PYZus{}11}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x\PYZus{}11}\PY{p}{)}
+        \PY{n}{yy} \PY{o}{=} \PY{n}{x\PYZus{}11}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y\PYZus{}11}\PY{p}{)}
+        \PY{n}{A\PYZus{}11} \PY{o}{=} \PY{n}{la}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{xx}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{yy}\PY{p}{)}
+\end{Verbatim}
+
+    求めた\(X\)は，次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{xx}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}3}]:}
+    
+    \[\left[\begin{matrix}15.0 & 500.0 & 2349.0 & 711.0\\500.0 & 17348.0 & 78674.0 & 24451.0\\2349.0 & 78674.0 & 368585.0 & 111981.0\\711.0 & 24451.0 & 111981.0 & 34857.0\end{matrix}\right]\]
+
+    
+
+    求めた\(Y\)は，次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{yy}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}4}]:}
+    
+    \[\left[\begin{matrix}393.0\\13395.0\\61824.0\\19033.0\end{matrix}\right]\]
+
+    
+
+    求める成分\(a_{0},a_{1},a_{2},a_{3}\) を
+\(A = \left( a_{0} a_{1} a_{2} a_{3} \right)^{T}\) とおくと，
+積和行列を用いて
+
+\(XA = Y\)
+
+となる． \(X\)の逆行列\(X^{-1}\)を左から乗じると，
+
+\(X^{-1} X A = X^{-1} Y\)
+
+\(A = X^{-1} Y\)
+
+となり，\(A\)を求めることができる．
+実際に求めた\(A\)が以下のとおりである．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{A\PYZus{}11}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}5}]:}
+    
+    \[\left[\begin{matrix}-13.2172983163764\\0.201376887707632\\0.171024571169944\\0.124942775265382\end{matrix}\right]\]
+
+    
+
+    \subsection{問1-2
+偏差積和行列を係数とする正規方程式を作って解く}\label{ux554f1-2-ux504fux5deeux7a4dux548cux884cux5217ux3092ux4fc2ux6570ux3068ux3059ux308bux6b63ux898fux65b9ux7a0bux5f0fux3092ux4f5cux3063ux3066ux89e3ux304f}
+
+    まず，偏差積和行列\$ X' \(と\) Y'
+\(を求める． また，\)x'\(が\)x\$の偏差行列だとすると，
+
+\(X' = x'^{T} x'\)
+
+\(Y' = x'^{T} y\)
+
+となる．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}
+        \PY{n}{x\PYZus{}mean} \PY{o}{=} \PY{n}{x\PYZus{}}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{x\PYZus{}} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}mean}
+        \PY{n}{x\PYZus{}12} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{p}{(}\PY{n}{x\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{x\PYZus{}}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+        \PY{n}{x\PYZus{}12}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{x\PYZus{}}
+        \PY{n}{y\PYZus{}12} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+        \PY{n}{xx} \PY{o}{=} \PY{n}{x\PYZus{}12}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x\PYZus{}12}\PY{p}{)}
+        \PY{n}{yy} \PY{o}{=} \PY{n}{x\PYZus{}12}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{y\PYZus{}12}\PY{p}{)}
+        \PY{n}{A\PYZus{}12} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{inv}\PY{p}{(}\PY{n}{xx}\PY{p}{)}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{yy}\PY{p}{)}
+\end{Verbatim}
+
+    求めた\(X'\)は，次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{xx}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}7}]:}
+    
+    \[\left[\begin{matrix}15.0 & -3.5527136788005 \cdot 10^{-14} & 8.5265128291212 \cdot 10^{-14} & 2.1316282072803 \cdot 10^{-14}\\-3.5527136788005 \cdot 10^{-14} & 681.333333333333 & 374.0 & 751.0\\8.5265128291212 \cdot 10^{-14} & 374.0 & 731.6 & 638.4\\2.1316282072803 \cdot 10^{-14} & 751.0 & 638.4 & 1155.6\end{matrix}\right]\]
+
+    
+
+    求めた\(Y'\)は，次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{yy}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}8}]:}
+    
+    \[\left[\begin{matrix}393.0\\294.999999999999\\280.200000000002\\404.8\end{matrix}\right]\]
+
+    
+
+    この問で求める成分を\(A' = \left( a_{0} a_{1} a_{2} a_{3} \right)^{T}\)
+とおくと， 積和行列を用いて
+
+\(X'A' = Y'\)
+
+となる． \(X'\)の逆行列\(X'^{-1}\)を左から乗じると，
+
+\(X'^{-1} X' A' = X'^{-1} Y'\)
+
+\(A' = X'^{-1} Y'\)
+
+となり，\(A'\)を求めることができる．
+実際に求めた\(A'\)が以下のとおりである．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{A\PYZus{}12}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}9}]:}
+    
+    \[\left[\begin{matrix}26.2\\0.201376887707657\\0.171024571169932\\0.124942775265373\end{matrix}\right]\]
+
+    
+
+    この結果を見ればわかるが，\(a_{0}\)以外の要素は先程問1(1)で求めた値と殆ど同じである．
+
+    \section{\texorpdfstring{問2 ベクトル \(y - \hat{y}\)
+の長さを求める}{問2 ベクトル y - \textbackslash{}hat\{y\} の長さを求める}}\label{ux554f2-ux30d9ux30afux30c8ux30eb-y---haty-ux306eux9577ux3055ux3092ux6c42ux3081ux308b}
+
+    ここで\(y\)は目的変数の測定値，
+\(\hat{y}\)は重回帰分析によって求めた\(A\)および\(A'\)を用いて求めた値とする．
+
+\(A\)と\(A'\)でそれぞれ長さを求める．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{yr\PYZus{}11} \PY{o}{=} \PY{n}{x\PYZus{}11}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{A\PYZus{}11}\PY{p}{)}
+         \PY{n}{yr\PYZus{}12} \PY{o}{=} \PY{n}{x\PYZus{}12}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{A\PYZus{}12}\PY{p}{)}
+         \PY{n}{y} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{Y}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{newaxis}\PY{p}{]}
+         \PY{n}{n1} \PY{o}{=} \PY{n}{la}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{yr\PYZus{}11} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}11}\PY{p}{)}
+         \PY{n}{n2} \PY{o}{=} \PY{n}{la}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{yr\PYZus{}12} \PY{o}{\PYZhy{}} \PY{n}{y\PYZus{}12}\PY{p}{)}
+\end{Verbatim}
+
+    問1(1)で求めた\(A\)を用いた場合のベクトル \(y - \hat{y}\)
+の長さは，以下の通りである．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{n1}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}11}]:}
+    
+    \[8.39618352926\]
+
+    
+
+    問1(2)で求めた\(A'\)を用いた場合のベクトル \(y - \hat{y}\)
+の長さは，以下の通りである．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{n2}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}12}]:}
+    
+    \[8.39618352926\]
+
+    
+
+    従って積和行列を用いて重回帰分析を行った場合も，偏差積和行列を用いて重回帰分析を行った場合も，
+求めた最適な\(a_{0}\)の値こそ異なるが，予測を行った際の誤差は同じ値となることがわかった．
+
+    \section{問3 主成分分析}\label{ux554f3-ux4e3bux6210ux5206ux5206ux6790}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{x\PYZus{}} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{asarray}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x\PYZus{}mean} \PY{o}{=} \PY{n}{x\PYZus{}}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{x\PYZus{}3} \PY{o}{=} \PY{n}{x\PYZus{}} \PY{o}{\PYZhy{}} \PY{n}{x\PYZus{}mean}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{xx} \PY{o}{=} \PY{n}{x\PYZus{}3}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{x\PYZus{}3}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{ef}\PY{p}{,} \PY{n}{ev} \PY{o}{=} \PY{n}{la}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{xx}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} 固有値と固有ベクトルのソート}
+         \PY{n}{max\PYZus{}ef} \PY{o}{=} \PY{l+m+mf}{0.}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{ef}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{max\PYZus{}i} \PY{o}{=} \PY{k+kc}{None}
+             \PY{n}{max\PYZus{}ef} \PY{o}{=} \PY{l+m+mf}{0.}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{ef}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{max\PYZus{}ef} \PY{o}{\PYZlt{}} \PY{n}{ef}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{:}
+                     \PY{n}{max\PYZus{}i} \PY{o}{=} \PY{n}{j}
+                     \PY{n}{max\PYZus{}ef} \PY{o}{=} \PY{n}{ef}\PY{p}{[}\PY{n}{j}\PY{p}{]}
+                     
+             \PY{n}{tmp1} \PY{o}{=} \PY{n}{ef}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{tmp2} \PY{o}{=} \PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ef}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ef}\PY{p}{[}\PY{n}{max\PYZus{}i}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{max\PYZus{}i}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+             \PY{n}{ef}\PY{p}{[}\PY{n}{max\PYZus{}i}\PY{p}{]} \PY{o}{=} \PY{n}{tmp1}
+             \PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{max\PYZus{}i}\PY{p}{]} \PY{o}{=} \PY{n}{tmp2}
+\end{Verbatim}
+
+    \subsection{問3(1)
+偏差積和行列の固有値3つを求める}\label{ux554f31-ux504fux5deeux7a4dux548cux884cux5217ux306eux56faux6709ux50243ux3064ux3092ux6c42ux3081ux308b}
+
+    まず，偏差積和行列\$ X'
+\(を求める． また，\)x'\(が\)x\$の偏差行列だとすると，
+
+\(X' = x'^{T} x'\)
+
+となる．
+
+ただし，先程の問1(2)で用いた偏差積和行列とは違い，
+データ列に定数項の計算に用いる \(1\) を挿入していないため，
+偏差積和行列の大きさは \(3 \times 3\) となる．
+
+    求めた\(X'\)は，次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{xx}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}17}]:}
+    
+    \[\left[\begin{matrix}681.333333333333 & 374.0 & 751.0\\374.0 & 731.6 & 638.4\\751.0 & 638.4 & 1155.6\end{matrix}\right]\]
+
+    
+
+    求めた固有値は，次の3つである．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{Matrix}\PY{p}{(}\PY{n}{ef}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}18}]:}
+    
+    \[\left[\begin{matrix}2102.10812120784 & 355.877512637534 & 110.54769948796\end{matrix}\right]\]
+
+    
+
+    \subsection{問3(2)
+各固有値に対応した固有ベクトルを求める}\label{ux554f32-ux5404ux56faux6709ux5024ux306bux5bfeux5fdcux3057ux305fux56faux6709ux30d9ux30afux30c8ux30ebux3092ux6c42ux3081ux308b}
+
+    求めた固有ベクトルは，以下の通りである．
+先程の問3(1)で求めた固有値にそれぞれ対応している．
+
+また，固有値が大きい順に並べており，順番に第一主成分，第二主成分，第三主成分となっている．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{固有値 }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ に対応している固有ベクトル}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ef}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Matrix}\PY{p}{(}\PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+固有値 2102.1081212078398 に対応している固有ベクトル
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}19}]:}
+    
+    \[\left[\begin{matrix}-0.505778333258832\\-0.473821861889441\\-0.720889118243258\end{matrix}\right]\]
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{固有値 }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ に対応している固有ベクトル}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ef}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Matrix}\PY{p}{(}\PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+固有値 355.87751263753404 に対応している固有ベクトル
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}20}]:}
+    
+    \[\left[\begin{matrix}0.499953851118198\\-0.842006600661878\\0.202659890441869\end{matrix}\right]\]
+
+    
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{固有値 }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{ に対応している固有ベクトル}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{ef}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{Matrix}\PY{p}{(}\PY{n}{ev}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+固有値 110.5476994879596 に対応している固有ベクトル
+    \end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}21}]:}
+    
+    \[\left[\begin{matrix}-0.703018082525621\\-0.257910309288812\\0.662757759671321\end{matrix}\right]\]
+
+    
+
+    \subsection{\texorpdfstring{問3(3) \(Wz(a_{1},a_{2},a_{3})\)
+を求める}{問3(3) Wz(a\_\{1\},a\_\{2\},a\_\{3\}) を求める}}\label{ux554f33-wza_1a_2a_3-ux3092ux6c42ux3081ux308b}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{z} \PY{o}{=} \PY{n}{x\PYZus{}3}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{ev}\PY{p}{)}
+         \PY{n}{z\PYZus{}mean} \PY{o}{=} \PY{n}{z}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{z\PYZus{}dev} \PY{o}{=} \PY{n}{z} \PY{o}{\PYZhy{}} \PY{n}{z\PYZus{}mean}
+         \PY{n}{wz} \PY{o}{=} \PY{p}{(}\PY{n}{z\PYZus{}dev}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+    \(Wz(a_{1},a_{2},a_{3}) \equiv \Sigma (z_{i} - \bar{z})\)と定義されている．
+それぞれ，第一，第二，第三主成分の \(Wz(a_{1},a_{2},a_{3})\) を求める．
+
+    第一主成分に対応する \(Wz(a_{1},a_{2},a_{3})\) は次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{wz}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}23}]:}
+    
+    \[2102.10812121\]
+
+    
+
+    第二主成分に対応する \(Wz(a_{1},a_{2},a_{3})\) は次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{wz}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}24}]:}
+    
+    \[355.877512638\]
+
+    
+
+    第三主成分に対応する \(Wz(a_{1},a_{2},a_{3})\) は次の通り．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{wz}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}25}]:}
+    
+    \[110.547699488\]
+
+    
+
+    これらの値はそれぞれ第一，第二，第三主成分に対応する固有値と同じである．
+
+    \section{\texorpdfstring{問4 全体の分散が
+\(\Sigma\)各主成分の分散となることを確認する}{問4 全体の分散が \textbackslash{}Sigma各主成分の分散となることを確認する}}\label{ux554f4-ux5168ux4f53ux306eux5206ux6563ux304c-sigmaux5404ux4e3bux6210ux5206ux306eux5206ux6563ux3068ux306aux308bux3053ux3068ux3092ux78baux8a8dux3059ux308b}
+
+    先程の問3で求めたものをデータ数で割ったものが，各主成分の分散である．
+すなわちこれらの合計と，主成分全体の分散が一致すればよい．
+
+    \(\Sigma\)各主成分の分散 は，以下の値となる
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{wz}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}26}]:}
+    
+    \[171.235555556\]
+
+    
+
+    また，主成分全体の分散が，以下の値である．
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{p}{(}\PY{n}{z}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+\end{Verbatim}
+\texttt{\color{outcolor}Out[{\color{outcolor}27}]:}
+    
+    \[171.235555556\]
+
+    
+
+    従って，全体の分散が \(\Sigma\)各主成分の分散 であることが確認された．
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
